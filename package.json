@@ -1,0 +1,34 @@
+{
+  "name": "oumuamua.nodejs.zero.to.hero",
+  "version": "1.0.0",
+  "description": "This is template NodeJS application for bootstrapping other NodeJS applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakulnagariy/oumuamua.nodejs.zero.to.hero.git"
+  },
+  "keywords": [
+    "nodejs",
+    "template",
+    "engins",
+    "bootstrap",
+    "node",
+    "project"
+  ],
+  "author": "Nakul Nagariya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nakulnagariy/oumuamua.nodejs.zero.to.hero/issues"
+  },
+  "homepage": "https://github.com/nakulnagariy/oumuamua.nodejs.zero.to.hero#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
