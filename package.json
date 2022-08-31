@@ -2,10 +2,10 @@
   "name": "oumuamua.nodejs.zero.to.hero",
   "version": "1.0.0",
   "description": "This is template NodeJS application for bootstrapping other NodeJS applications.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/nakulnagariy/oumuamua.nodejs.zero.to.hero#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.18.1"
   },
   "devDependencies": {
