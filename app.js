@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const pug = require("pug");
 
 const app = express();
 
@@ -13,16 +14,20 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('view engine', 'pug');
 
+// tell the express where to find the our views, 
+// we can name anything and refer the same name to second params
+app.set("views", "views")
 // parse application/json
 // app.use(bodyParser.json())
 
 // app.use(userRoutes);
-app.use("/admin", adminRoutes);
+app.use("/admin", adminRoutes.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-    res.status(404).send(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render('404.pug', {pageTitle: "Page not found"});
 })
 
 app.listen(8080, () => {
