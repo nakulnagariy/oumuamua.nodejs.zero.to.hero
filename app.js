@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const pug = require("pug");
+const expressHbs = require('express-handlebars');
 
 const app = express();
 
@@ -14,11 +14,26 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'pug');
+
+
+app.engine(
+    'hbs',
+    expressHbs.engine({
+      layoutsDir: 'views/layouts/',
+      defaultLayout: 'main-layout',
+      extname: 'hbs'
+    })
+  );
+// set you view engine
+app.set('view engine', 'hbs');
+app.set("views", "views")
+
+// set you view engine, pug is built-in engine in express
+// app.set('view engine', 'pug');
 
 // tell the express where to find the our views, 
 // we can name anything and refer the same name to second params
-app.set("views", "views")
+// app.set("views", "views")
 // parse application/json
 // app.use(bodyParser.json())
 
@@ -27,7 +42,7 @@ app.use("/admin", adminRoutes.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-    res.status(404).render('404.pug', {pageTitle: "Page not found"});
+    res.status(404).render('404', {pageTitle: "Page not found"});
 })
 
 app.listen(8080, () => {
