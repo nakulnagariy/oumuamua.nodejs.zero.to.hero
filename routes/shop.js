@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
     res.render("shop", {
         prods: p,
         pageTitle: "Shop",
+        path: "/",
         hasProducts: p.length > 0,
         activeShop: true,
         productCSS: true
