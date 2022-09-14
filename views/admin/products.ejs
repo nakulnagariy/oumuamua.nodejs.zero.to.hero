@@ -1,0 +1,40 @@
+<%- include("../includes/head.ejs") %>
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include("../includes/navigation.ejs") %>
+    <main>
+        <h1>Welcome Home</h1>
+        <% if(prods.length > 0) { %>
+            <div class="grid">
+                <% prods.forEach(function (prod) { %>
+                    <article class="card product-item">
+                        <h1 class="product__title">
+                            <%= prod.title %>
+                        </h1>
+                        <div class="card__image">
+                            <img src="<%= prod.imageUrl %>"
+                                , alt="<%= prod.title %>" />
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">$<%= prod.price %></h2>
+                            <div class="product__description">
+                                <%= prod.description %>
+                            </div>
+                            <div class="card__actions">
+                                <form method="post" action="admin/edit">
+                                    <button class="btn">Edit</button>
+                                </form>
+                                <form method="post" action="admin/delete">
+                                    <button class="btn">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+            <% } else { %>
+                <h1>No Products</h1>
+            <% } %>
+    </main>
+<%- include("../includes/end.ejs") %>
