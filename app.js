@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 
 const app = express();
 
@@ -18,7 +19,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // EJS
 app.set('view engine', 'ejs');
-app.set("views", "views")
+app.set("views", "views");
+// Create the connection pool. The pool-specific settings are the defaults
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'jan2022@Nua361',
+    database: 'complete_node'
+  });
+
+// For pool initialization, see above
+pool.execute("SELECT * FROM products", function(err, rows, fields) {
+    // Connection is automatically released when query resolves
+    if(!err) {
+        console.log("data", rows)
+    }
+ })
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
