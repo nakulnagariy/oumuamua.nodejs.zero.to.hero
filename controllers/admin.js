@@ -10,9 +10,17 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
     const { title, imageUrl, description, price } = req.body;
-    const product = new Product(null, title, imageUrl, description, price);
-    product.save();
-    res.redirect('/');
+    // create will create a modal and saves it, instead of build will not save
+    Product.create({
+      title: title,
+      imageUrl: imageUrl,
+      description: description,
+      price: price
+    }).then(result => {
+      console.log(result);
+    }).catch((err) => {
+      console.error(err);
+    })
 }
 
 exports.getEditProduct = (req, res, next) => {
@@ -21,7 +29,7 @@ exports.getEditProduct = (req, res, next) => {
         return res.redirect("/");
     }
     const prodId = req.params.productId;
-    Product.findById(prodId, product => {
+    Product.findByPk(prodId, product => {
     if (!product) {
       return res.redirect('/');
     }
@@ -52,13 +60,15 @@ exports.postEditProduct = (req, res, next) => {
   };
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll(products => {
+    Product.findAll().then(products => {
         res.render("admin/products", {
             prods: products,
             pageTitle: "Admin products",
             path: "/admin/products",
         })
-    });
+    }).catch(err => {
+      console.log(err)
+    })
 }
 
 
