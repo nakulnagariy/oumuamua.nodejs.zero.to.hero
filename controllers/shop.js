@@ -15,13 +15,32 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findByPk(prodId, product => {
+  const options = {
+      where: { product: prodId },
+  };
+  // findAll @return array of element
+  // Product.findAll({where : { id: prodId }}).then(products => {
+  //   res.render('shop/product-detail', {
+  //     product: products[0],
+  //     pageTitle: products[0].title,
+  //     path: '/products'
+  //   });
+  // }).catch(err => {
+  //   console.log(err);
+  // })
+  
+  // we can also try findById
+  // findByPk @return an element
+
+  Product.findByPk(prodId).then(product => {
     res.render('shop/product-detail', {
       product: product,
       pageTitle: product.title,
       path: '/products'
     });
-  });
+  }).catch(err => {
+    console.log(err);
+  })
 };
 
 exports.getIndex = (req, res, next) => {
