@@ -1,10 +1,7 @@
-const path = require('path');
 const express = require('express');
-// routes
-const adminRoutes = require('./admin');
-const rootDir = require("../utils/path");
+
 const router = express.Router();
-const shopController = require('../controllers/shop')
+const shopController = require('../controllers/shop');
 
 router.get('/', shopController.getIndex);
 
