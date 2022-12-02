@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 const Product = require('../models/product');
+const logger = require('../util/logger');
 
 exports.getAddProduct = (req, res) => {
   res.render('admin/edit-product', {
@@ -22,11 +23,11 @@ exports.postAddProduct = (req, res) => {
     userId: req.user.id,
   })
     .then((result) => {
-      console.log(result);
+      logger.info(JSON.stringify(result), { meta: 'postAddProduct' });
       res.redirect('/admin/products');
     })
     .catch((err) => {
-      console.error(err);
+      logger.error(err, { meta: 'postAddProduct' });
     });
 };
 
@@ -53,7 +54,7 @@ exports.getEditProduct = (req, res) => {
       });
     })
     .catch((err) => {
-      console.error(err);
+      logger.error(err, { meta: 'getEditProduct' });
     });
 };
 
@@ -72,11 +73,11 @@ exports.postEditProduct = (req, res) => {
       return product.save();
     })
     .then((result) => {
-      console.log('result', result);
+      logger.info(JSON.stringify(result), { meta: 'postEditProduct' });
       res.redirect('/admin/products');
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'postEditProduct' });
     });
 };
 
@@ -91,7 +92,7 @@ exports.getProducts = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'getProducts' });
     });
 };
 
@@ -101,11 +102,11 @@ exports.postDeleteProduct = (req, res) => {
     .then((product) => {
       product.destroy();
     })
-    .then(() => {
-      console.log('product deleted');
+    .then((result) => {
+      logger.info(JSON.stringify(result), { meta: 'postDeleteProduct' });
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'postDeleteProduct' });
     });
   res.redirect('/admin/products');
 };

@@ -9,7 +9,6 @@ router.get('/user', (req, res) => {
 });
 
 router.post('/user-added', (req, res) => {
-  console.log(req.body);
   res.redirect('/');
   // Allows the request to continue to the next middleware in line
   // next();

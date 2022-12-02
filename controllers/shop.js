@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const logger = require('../util/logger');
 
 exports.getProducts = (req, res) => {
   Product.findAll()
@@ -10,7 +11,7 @@ exports.getProducts = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'getProducts' });
     });
 };
 
@@ -42,7 +43,7 @@ exports.getProduct = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'getProduct' });
     });
 };
 
@@ -56,7 +57,7 @@ exports.getIndex = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'getIndex' });
     });
 };
 
@@ -73,9 +74,9 @@ exports.getCart = (req, res) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        logger.error(err, { meta: 'getCart' });
       })).catch((err) => {
-      console.log(err);
+      logger.error(err, { meta: 'getCart1' });
     });
 };
 
@@ -108,7 +109,7 @@ exports.postCart = (req, res) => {
     .then(() => {
       res.redirect('/cart');
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err, { meta: 'postCart' }));
 };
 
 exports.postCartDeleteProduct = (req, res) => {
@@ -123,7 +124,7 @@ exports.postCartDeleteProduct = (req, res) => {
     .then(() => {
       res.redirect('/cart');
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err, { meta: 'postCartDeleteProduct' }));
 };
 
 exports.getOrders = (req, res) => {
@@ -136,7 +137,7 @@ exports.getOrders = (req, res) => {
         orders,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err, { meta: 'getOrders' }));
 };
 
 exports.postOrder = (req, res) => {
@@ -156,11 +157,11 @@ exports.postOrder = (req, res) => {
           return product;
         }),
       ))
-      .catch((err) => console.log(err))).then(() => fetchedCart.setProducts(null))
+      .catch((err) => logger.error(err, { meta: 'postOrder' }))).then(() => fetchedCart.setProducts(null))
     .then(() => {
       res.redirect('/orders');
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err, { meta: 'postOrder1' }));
 };
 
 exports.getCheckout = (req, res) => {
